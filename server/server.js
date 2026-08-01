@@ -56,7 +56,12 @@ app.use(
       if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some(o => origin.startsWith(o))) {
         callback(null, true);
       } else {
-        callback(new Error(`Not allowed by CORS: ${origin}`));
+        // Accept any *.vercel.app preview domain
+        if (origin && origin.includes('.vercel.app')) {
+          callback(null, true);
+        } else {
+          callback(new Error(`Not allowed by CORS: ${origin}`));
+        }
       }
     },
     credentials: true,
@@ -80,6 +85,8 @@ const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
   message: { message: 'Too many authentication attempts, please try again in 15 minutes.' },
+  // OPTIONS preflight should not be rate‑limited
+  skip: (req) => req.method === 'OPTIONS',
 });
 app.use('/api/auth', authLimiter);
 
