@@ -27,7 +27,11 @@ connectDB();
 
 const app = express();
 // Railway runs behind a reverse proxy
+
 app.set('trust proxy', 1);
+app.get('/', (req, res) => {
+  res.send('SkillSync backend is running');
+});
 
 // ─── Security Middleware ──────────────────────────────────────────────────────
 // Set security HTTP headers
@@ -86,6 +90,8 @@ const authLimiter = rateLimit({
   max: 20,
   message: { message: 'Too many authentication attempts, please try again in 15 minutes.' },
   // OPTIONS preflight should not be rate‑limited
+  standardHeaders: true,
+  legacyHeaders: false,
   skip: (req) => req.method === 'OPTIONS',
 });
 app.use('/api/auth', authLimiter);
