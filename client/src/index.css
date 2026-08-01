@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   body {
     @apply antialiased text-gray-900 bg-gray-50;
     font-family: 'Inter', sans-serif;
   }
+
   .dark body {
     @apply text-gray-100 bg-gray-900;
   }
@@ -19,9 +19,11 @@
   .glass-panel {
     @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-white/20 dark:border-gray-700/50 shadow-soft;
   }
+
   .btn-primary {
     @apply bg-primary-600 text-white hover:bg-primary-700 transition-colors duration-200 shadow-sm rounded-lg px-4 py-2 font-medium;
   }
+
   .card {
     @apply bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
