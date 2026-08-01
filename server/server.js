@@ -189,7 +189,10 @@ const PORT = process.env.PORT || 5000;
 console.log('🔧 About to start server on port', PORT);
 
 const server = app.listen(PORT, "0.0.0.0", () => {
-    console.log(server.address());
+    const addr = server.address();
+    console.log('🚀 Server callback executed successfully');
+    console.log(`✅ Server running in ${process.env.NODE_ENV || 'development'} mode`);
+    console.log(`📡 Listening on host: ${addr.address} port: ${addr.port} (Family: ${addr.family})`);
 });
 
 // Handle unhandled promise rejections
