@@ -10,9 +10,9 @@ const { errorHandler, notFound } = require('./middleware/errorMiddleware');
 
 // Load env vars
 dotenv.config();
-  console.log('✅ dotenv loaded');
-  console.log('✅ OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? 'Present' : 'Missing');
-  console.log('✅ OPENROUTER_MODEL:', process.env.OPENROUTER_MODEL ? process.env.OPENROUTER_MODEL : 'Missing');
+console.log('✅ dotenv loaded');
+console.log('✅ OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? 'Present' : 'Missing');
+console.log('✅ OPENROUTER_MODEL:', process.env.OPENROUTER_MODEL ? process.env.OPENROUTER_MODEL : 'Missing');
 
 // Validate critical environment variables
 const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET'];
@@ -26,6 +26,8 @@ if (missingEnvVars.length > 0) {
 connectDB();
 
 const app = express();
+// Railway runs behind a reverse proxy
+app.set('trust proxy', 1);
 
 // ─── Security Middleware ──────────────────────────────────────────────────────
 // Set security HTTP headers
