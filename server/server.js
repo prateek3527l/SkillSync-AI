@@ -26,6 +26,7 @@ if (missingEnvVars.length > 0) {
 connectDB();
 
 const app = express();
+console.log('🚀 Express app created');
 // Railway runs behind a reverse proxy
 app.use((req, res, next) => {
   console.log(`➡️ ${req.method} ${req.originalUrl}`);
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 });
 app.set('trust proxy', 1);
 app.get('/', (req, res) => {
+  console.log('ROOT HIT');
   res.send('SkillSync backend is running');
 });
 
@@ -163,6 +165,7 @@ app.use('/api/portfolio', require('./routes/portfolioRoutes'));
 app.use('/api/settings', require('./routes/settingsRoutes'));
 app.use('/api/public', require('./routes/publicRoutes'));
 app.use('/api/profile', require('./routes/profileRoutes'));
+console.log('✅ Routes initialized');
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -173,14 +176,20 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.get('/ping', (req, res) => {
+  console.log('PING HIT');
+  res.send('pong');
+});
 // ─── Error Handling ───────────────────────────────────────────────────────────
 app.use(notFound);
 app.use(errorHandler);
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
+console.log('🔧 About to start server on port', PORT);
 
 const server = app.listen(PORT, () => {
+  console.log('🚀 Server callback executed');
   console.log(`✅ Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 
