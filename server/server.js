@@ -27,7 +27,10 @@ connectDB();
 
 const app = express();
 // Railway runs behind a reverse proxy
-
+app.use((req, res, next) => {
+  console.log(`➡️ ${req.method} ${req.originalUrl}`);
+  next();
+});
 app.set('trust proxy', 1);
 app.get('/', (req, res) => {
   res.send('SkillSync backend is running');
