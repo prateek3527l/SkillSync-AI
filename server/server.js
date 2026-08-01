@@ -36,20 +36,33 @@ app.use(helmet({
 }));
 
 // Enable CORS with explicit origin whitelist
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173').split(',');
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
+  .split(',')
+  .filter(Boolean);
 if (process.env.CLIENT_URL && !allowedOrigins.includes(process.env.CLIENT_URL)) {
   allowedOrigins.push(process.env.CLIENT_URL);
 }
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some(o => origin.startsWith(o))) {
-      callback(null, true);
-    } else {
-      callback(new Error(`Not allowed by CORS: ${origin}`));
-    }
-  },
-  credentials: true,
-}));
+
+// Temporary logging before CORS
+app.use((req, res, next) => {
+  console.log('CORS LOG -> method:', req.method, 'origin:', req.headers.origin, 'ip:', req.ip);
+  next();
+});
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow non‑browser requests without Origin header
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some(o => origin.startsWith(o))) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+      }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
 
 // Rate limiting – 100 requests per 15 minutes per IP
 const limiter = rateLimit({
@@ -58,6 +71,7 @@ const limiter = rateLimit({
   message: { message: 'Too many requests from this IP, please try again in 15 minutes.' },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS',
 });
 app.use('/api', limiter);
 
