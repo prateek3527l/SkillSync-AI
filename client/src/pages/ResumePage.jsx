@@ -48,6 +48,7 @@ export default function ResumePage() {
       });
       setResume(res.data);
       toast.success('Resume uploaded successfully');
+      handleAnalyze();
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to upload resume');
     } finally {
@@ -197,7 +198,7 @@ export default function ResumePage() {
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Analyzing Resume...</h3>
                 <p className="text-gray-500 dark:text-gray-400 max-w-md">Our AI is reading your resume, checking ATS compatibility, and generating tailored feedback. This usually takes 10-20 seconds.</p>
               </div>
-            ) : resume.analysis ? (
+            ) : (resume.analysis && resume.analysis.lastAnalyzedAt) ? (
               <div className="space-y-6">
                 <div className="card p-6 border-t-4 border-primary-500">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Overall Summary</h3>
@@ -296,15 +297,15 @@ export default function ResumePage() {
             <div className="card p-6 text-center">
               <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Overall Score</h3>
               <div className="text-6xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                {resume.analysis?.overallScore || '--'}
+                {resume.analysis && resume.analysis.lastAnalyzedAt ? resume.analysis.overallScore : '--'}
                 <span className="text-2xl text-gray-400">/100</span>
               </div>
               <p className="text-xs text-gray-400">
-                {resume.analysis ? `Last updated: ${new Date(resume.analysis.lastAnalyzedAt).toLocaleDateString()}` : 'Not yet analyzed'}
+                {resume.analysis && resume.analysis.lastAnalyzedAt ? `Last updated: ${new Date(resume.analysis.lastAnalyzedAt).toLocaleDateString()}` : 'Not yet analyzed'}
               </p>
             </div>
 
-            {resume.analysis && (
+            {resume.analysis && resume.analysis.lastAnalyzedAt && (
               <div className="card p-6 space-y-5">
                 <h3 className="font-bold text-gray-900 dark:text-white mb-4 border-b pb-2 dark:border-gray-700">Detailed Metrics</h3>
                 

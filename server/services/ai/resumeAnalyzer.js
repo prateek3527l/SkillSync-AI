@@ -56,7 +56,10 @@ const analyzeWithGemini = async (text) => {
   });
 
   try {
-    const jsonStr = response.text;
+    let jsonStr = response.text || '';
+    if (jsonStr.includes('```')) {
+      jsonStr = jsonStr.replace(/```json/g, '').replace(/```/g, '').trim();
+    }
     return JSON.parse(jsonStr);
   } catch (error) {
     console.error("Failed to parse Gemini response as JSON:", response.text);
