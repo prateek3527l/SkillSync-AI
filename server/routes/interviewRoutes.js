@@ -12,8 +12,9 @@ router.post('/finish', protect, finishInterview);
 router.get('/history', protect, getHistory);
 router.route('/history/:id').get(protect, getSessionDetail).delete(protect, deleteSession);
 router.get('/status', protect, (req, res) => {
-  const hasKey = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here';
-  if (!hasKey) {
+  const hasGemini = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here';
+  const hasOpenRouter = process.env.OPENROUTER_API_KEY && process.env.OPENROUTER_API_KEY !== 'your_openrouter_api_key_here';
+  if (!hasGemini && !hasOpenRouter) {
     return res.status(200).json({
       configured: false,
       message: 'AI provider not configured.'
