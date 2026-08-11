@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+const dns = require('dns');
+
+// Set Node.js DNS resolver to use reliable DNS servers for MongoDB Atlas SRV resolution
+dns.setServers(['1.1.1.1', '8.8.8.8']);
 
 const connectDB = async () => {
   if (process.env.NODE_ENV === 'test') {

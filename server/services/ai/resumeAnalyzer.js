@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pdf = require('pdf-parse');
+const { PDFParse } = require('pdf-parse');
 const { generateContentWithFallback } = require('../../utils/openrouter');
 
 const PROMPT_TEMPLATE = `
@@ -33,8 +33,13 @@ Resume Text:
  */
 const extractTextFromPDF = async (filePath) => {
   const dataBuffer = fs.readFileSync(filePath);
-  const data = await pdf(dataBuffer);
-  return data.text;
+  const parser = new PDFParse({ data: dataBuffer });
+  try {
+    const data = await parser.getText();
+    return data.text;
+  } finally {
+    await parser.destroy().catch(() => {});
+  }
 };
 
 /**
