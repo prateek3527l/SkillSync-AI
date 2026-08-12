@@ -1,5 +1,6 @@
 const fs = require('fs');
-const { PDFParse } = require('pdf-parse');
+const pdfParse = require('pdf-parse');
+const PDFParse = pdfParse.PDFParse || (pdfParse.default && pdfParse.default.PDFParse) || pdfParse;
 const { generateContentWithFallback } = require('../../utils/openrouter');
 
 const PROMPT_TEMPLATE = `
