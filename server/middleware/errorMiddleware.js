@@ -38,8 +38,7 @@ const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
     message: err.message || 'An unexpected server error occurred',
-    // Only expose stack trace in development
-    stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+    stack: err.stack,
   });
 };
 

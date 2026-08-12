@@ -58,6 +58,7 @@ export default function ResumePage() {
   };
 
   const handleAnalyze = async () => {
+    if (analyzing) return;
     setAnalyzing(true);
     try {
       const res = await api.post('/resume/analysis');
@@ -374,7 +375,7 @@ export default function ResumePage() {
               </button>
             </div>
             <div className="flex-1 bg-gray-100 dark:bg-gray-900">
-              <object data={`http://localhost:5000${resume.fileUrl}`} type="application/pdf" className="w-full h-full">
+              <object data={`${api.defaults.baseURL ? api.defaults.baseURL.replace('/api', '') : ''}${resume.fileUrl}`} type="application/pdf" className="w-full h-full">
                 <div className="flex flex-col items-center justify-center h-full p-8 text-center">
                   <FileText className="w-16 h-16 text-gray-400 mb-4" />
                   <p className="text-gray-600 dark:text-gray-400 mb-4">Your browser does not support embedded PDFs.</p>
