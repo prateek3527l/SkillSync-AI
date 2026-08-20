@@ -16,8 +16,10 @@ import {
   FileText,
   User as UserIcon,
   Edit3,
-  X
+  X,
+  ChevronRight
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 import toast from 'react-hot-toast';
