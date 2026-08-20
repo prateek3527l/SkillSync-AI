@@ -70,6 +70,14 @@ Provide an overall session summary. Return ONLY valid JSON with this structure:
 `;
 };
 
+const parseJSONContent = (text) => {
+  let jsonStr = text || '';
+  if (jsonStr.includes('```')) {
+    jsonStr = jsonStr.replace(/```json/g, '').replace(/```/g, '').trim();
+  }
+  return JSON.parse(jsonStr);
+};
+
 /**
  * Generate interview questions
  */
@@ -80,7 +88,7 @@ const generateQuestions = async (interviewType, targetRole, difficulty, count) =
   });
 
   try {
-    return JSON.parse(response.text);
+    return parseJSONContent(response.text);
   } catch {
     throw new Error('AI returned invalid question format');
   }
@@ -104,7 +112,7 @@ const evaluateAnswer = async (question, answer, interviewType, difficulty) => {
   });
 
   try {
-    return JSON.parse(response.text);
+    return parseJSONContent(response.text);
   } catch {
     throw new Error('AI returned invalid evaluation format');
   }
@@ -120,8 +128,8 @@ const generateSessionSummary = async (questions, interviewType, targetRole, diff
   });
 
   try {
-    return JSON.parse(response.text);
-  } catch {
+    return parseJSONContent(response.text);
+  } catch (e) {
     throw new Error('AI returned invalid summary format');
   }
 };
