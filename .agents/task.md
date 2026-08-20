@@ -1,0 +1,2 @@
+- [x] Modify index.css to align global utilities (btn-primary, card)
+- [x] Perform a build validation run

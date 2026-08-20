@@ -22,6 +22,8 @@ const SettingsPage = lazy(() => import('../pages/SettingsPage'));
 const JobsPage = lazy(() => import('../pages/JobsPage'));
 const PortfolioSettingsPage = lazy(() => import('../pages/PortfolioSettingsPage'));
 const PublicPortfolio = lazy(() => import('../pages/PublicPortfolio'));
+const SkillsPage = lazy(() => import('../pages/SkillsPage'));
+const RecommendationsPage = lazy(() => import('../pages/RecommendationsPage'));
 
 export default function AppRoutes() {
   return (
@@ -41,6 +43,8 @@ export default function AppRoutes() {
             <Route element={<DashboardLayout />}>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/skills" element={<SkillsPage />} />
+              <Route path="/recommendations" element={<RecommendationsPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/resume" element={<ResumePage />} />
               <Route path="/jobs" element={<JobsPage />} />
