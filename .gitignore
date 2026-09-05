@@ -39,3 +39,7 @@ coverage/
 
 # ─── Docker ──────────────────────────────────────────────────────────────────
 .dockerignore
+
+ai-service/venv/
+__pycache__/
+*.pyc
