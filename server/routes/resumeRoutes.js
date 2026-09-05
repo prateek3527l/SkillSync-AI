@@ -7,7 +7,9 @@ const {
   deleteResume,
   analyzeResume,
   getAnalysis,
-  deleteAnalysis
+  deleteAnalysis,
+  analyzeResumePython,
+  getPythonRoles
 } = require('../controllers/resumeController');
 const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
@@ -18,6 +20,9 @@ router.route('/')
 
 router.post('/upload', protect, upload.single('resume'), uploadResume);
 router.get('/download', protect, downloadResume);
+
+router.get('/python-roles', protect, getPythonRoles);
+router.post('/analyze-python', protect, upload.single('resume'), analyzeResumePython);
 
 router.route('/analysis')
   .get(protect, getAnalysis)

@@ -241,7 +241,41 @@ cd client && npm run lint
 
 ---
 
+## 🐍 Python AI Resume Microservice (`ai-service`)
+
+SkillSync AI features a dedicated **Python FastAPI Microservice** for PDF resume parsing, regex-based skill extraction, role gap analysis, and recommendations.
+
+### Features
+- **PDF Text Extraction**: Uses `pypdf` to parse raw PDF pages.
+- **Skill Detection**: Modular regular expression matching for 15+ core technologies.
+- **Role Skill Matching**: Compares detected skills against target job profiles (`Full Stack Developer`, `Backend Developer`, `Frontend Developer`, `Software Developer`, `Python Developer`).
+- **Gap Analysis & Recommendations**: Returns match score percentage, missing skills, and prioritized learning suggestions.
+
+### Setup & Running
+
+```bash
+# 1. Navigate to ai-service directory
+cd ai-service
+
+# 2. Create virtual environment
+python -m venv venv  # or path to Python 3.12+
+
+# 3. Activate virtual environment (Windows)
+.\venv\Scripts\activate
+
+# 4. Install dependencies
+pip install -r requirements.txt
+
+# 5. Start FastAPI service
+python -m uvicorn main:app --port 8000
+```
+
+FastAPI OpenAPI Interactive Docs will be accessible at: **http://localhost:8000/docs**
+
+---
+
 <div align="center">
   <p>Built with ❤️ for developers who are serious about their careers.</p>
   <p><strong>SkillSync AI</strong> — Practice. Track. Ship. 🚀</p>
 </div>
+

@@ -5,24 +5,14 @@ Project initialized for Ralph Loop.
 ## Completed
 - Existing SkillSync AI project structure identified.
 - PRD created for adding a Python FastAPI Resume Skill Analyzer.
-- Existing client/server architecture will be preserved.
+- Existing client/server architecture preserved.
+- Python FastAPI microservice created in `ai-service` (`main.py`, `analyzer.py`, `requirements.txt`).
+- Text extraction implemented using `pypdf`.
+- Skill extraction and role skill matching implemented for 15+ skills across 5 job roles.
+- Node.js Express endpoints `/api/resume/analyze-python` and `/api/resume/python-roles` integrated with `PYTHON_AI_URL`.
+- React frontend updated in `ResumePage.jsx` with Python Resume Analyzer toggle tab, target role selector, skill match percentages, matched/missing skill badges, and actionable learning recommendations.
+- README.md updated with Python microservice setup instructions and architecture details.
+- Empirical HTTP health check & API testing verified successfully.
 
 ## Current Task
-- Begin implementation of the Python FastAPI resume analysis microservice.
-
-## Pending
-- Inspect existing client and server architecture.
-- Create Python AI service.
-- Implement PDF resume text extraction.
-- Implement skill extraction.
-- Implement job-role skill matching.
-- Implement skill-gap analysis.
-- Integrate Python service with Node.js/Express.
-- Add frontend Resume Analyzer UI.
-- Test complete integration.
-- Update README documentation.
-
-## Notes
-- Do not rewrite existing functionality unnecessarily.
-- Node.js/Express remains the primary backend.
-- Python/FastAPI will handle resume analysis.
+- Complete! All tasks from PRD finished and verified.
