@@ -107,7 +107,7 @@ async function generateContentWithFallback(_unusedAi, options) {
   const prompt = options.contents || '';
   const config = options.config || {};
   const messages = [{ role: 'system', content: prompt }];
-  
+
   const models = getOpenRouterModelList();
   let lastError = null;
 
@@ -132,4 +132,3 @@ async function generateContentWithFallback(_unusedAi, options) {
 }
 
 module.exports = { generateContentWithFallback, callOpenRouter, getOpenRouterModelList };
-

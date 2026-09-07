@@ -9,7 +9,7 @@ import ProjectStats from '../components/projects/ProjectStats';
 export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Filtering & Searching State
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
@@ -76,7 +76,7 @@ export default function ProjectsPage() {
 
   // Filtering Logic
   const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           project.technologies.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesStatus = filterStatus === 'All' || project.status === filterStatus;
     const matchesCategory = filterCategory === 'All' || project.category === filterCategory;
@@ -110,20 +110,20 @@ export default function ProjectsPage() {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
             <Search className="w-5 h-5 absolute left-3 top-2.5 text-gray-400" />
-            <input 
-              type="text" 
-              placeholder="Search projects by title or tech..." 
+            <input
+              type="text"
+              placeholder="Search projects by title or tech..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-primary-500"
             />
           </div>
-          
+
           <div className="flex gap-2">
             <div className="relative">
               <Filter className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
-              <select 
-                value={filterStatus} 
+              <select
+                value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
                 className="pl-9 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white appearance-none"
               >
@@ -133,9 +133,9 @@ export default function ProjectsPage() {
                 <option value="Planning">Planning</option>
               </select>
             </div>
-            
-            <select 
-              value={filterCategory} 
+
+            <select
+              value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
             >
@@ -149,8 +149,8 @@ export default function ProjectsPage() {
               <option value="Other">Other</option>
             </select>
 
-            <select 
-              value={sortBy} 
+            <select
+              value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
             >
@@ -165,9 +165,9 @@ export default function ProjectsPage() {
       {filteredProjects.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map(project => (
-            <ProjectCard 
-              key={project._id} 
-              project={project} 
+            <ProjectCard
+              key={project._id}
+              project={project}
               onEdit={openEditModal}
               onDelete={handleDeleteProject}
             />
@@ -180,7 +180,7 @@ export default function ProjectsPage() {
           </div>
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No projects found</h3>
           <p className="text-gray-500 dark:text-gray-400 max-w-sm mb-6">
-            {projects.length === 0 
+            {projects.length === 0
               ? "You haven't added any projects yet. Get started by creating your first project showcase."
               : "No projects match your current search and filter criteria."}
           </p>
@@ -192,11 +192,11 @@ export default function ProjectsPage() {
         </div>
       )}
 
-      <ProjectModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onSave={handleSaveProject} 
-        project={editingProject} 
+      <ProjectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveProject}
+        project={editingProject}
       />
     </div>
   );

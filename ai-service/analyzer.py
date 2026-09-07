@@ -47,7 +47,7 @@ def extract_text_from_pdf_bytes(pdf_bytes: bytes) -> str:
     """Extract text content from raw PDF bytes."""
     if not pdf_bytes or len(pdf_bytes) == 0:
         raise ValueError("Provided PDF file is empty.")
-    
+
     try:
         reader = PdfReader(io.BytesIO(pdf_bytes))
         extracted_text = []
@@ -55,11 +55,11 @@ def extract_text_from_pdf_bytes(pdf_bytes: bytes) -> str:
             text = page.extract_text()
             if text:
                 extracted_text.append(text)
-        
+
         full_text = "\n".join(extracted_text).strip()
         if not full_text:
             raise ValueError("Could not extract any readable text from the PDF. It may be scanned or image-only.")
-        
+
         return full_text
     except Exception as e:
         if isinstance(e, ValueError):
@@ -70,11 +70,11 @@ def extract_skills_from_text(text: str) -> List[str]:
     """Scan text for predefined skills using regular expressions."""
     detected = []
     text_lower = text.lower()
-    
+
     for skill, pattern in SKILL_PATTERNS.items():
         if re.search(pattern, text_lower, re.IGNORECASE):
             detected.append(skill)
-            
+
     return detected
 
 def analyze_resume_skills(pdf_bytes: bytes, target_role: str) -> Dict[str, Any]:

@@ -278,4 +278,3 @@ FastAPI OpenAPI Interactive Docs will be accessible at: **http://localhost:8000/
   <p>Built with ❤️ for developers who are serious about their careers.</p>
   <p><strong>SkillSync AI</strong> — Practice. Track. Ship. 🚀</p>
 </div>
-

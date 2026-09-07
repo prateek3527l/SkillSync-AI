@@ -19,13 +19,13 @@ const portfolioSchema = mongoose.Schema(
     location: { type: String, default: '' },
     experienceYears: { type: Number, default: 0 },
     availabilityStatus: { type: String, default: 'Open to Opportunities' },
-    
+
     about: {
       education: { type: String, default: '' },
       experience: { type: String, default: '' },
       careerGoals: { type: String, default: '' },
     },
-    
+
     skills: {
       frontend: [{ type: String }],
       backend: [{ type: String }],
@@ -33,21 +33,21 @@ const portfolioSchema = mongoose.Schema(
       tools: [{ type: String }],
       softSkills: [{ type: String }],
     },
-    
+
     codingProfiles: {
       github: { type: String, default: '' },
       leetcode: { type: String, default: '' },
       hackerrank: { type: String, default: '' },
       codeforces: { type: String, default: '' },
     },
-    
+
     contact: {
       emailEnabled: { type: Boolean, default: true },
       linkedin: { type: String, default: '' },
       twitter: { type: String, default: '' },
       website: { type: String, default: '' },
     },
-    
+
     preferences: {
       theme: { type: String, enum: ['light', 'dark', 'system'], default: 'system' },
       accentColor: { type: String, default: 'indigo' },

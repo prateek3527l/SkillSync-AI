@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
-import { 
-  User, 
-  Palette, 
-  Bell, 
-  Shield, 
-  Lock, 
-  Link as LinkIcon, 
-  Settings as SettingsIcon, 
-  Database, 
+import {
+  User,
+  Palette,
+  Bell,
+  Shield,
+  Lock,
+  Link as LinkIcon,
+  Settings as SettingsIcon,
+  Database,
   AlertOctagon,
   CheckCircle,
   Loader,
@@ -126,14 +126,14 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-12 animate-fadeIn font-sans">
-      
+
       {/* Settings Page Header */}
       <div className="border-b border-slate-200/60 dark:border-slate-800 pb-4 flex justify-between items-center">
         <div>
           <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Settings</h1>
           <p className="text-xs text-slate-400 mt-1">Manage your account and application preferences.</p>
         </div>
-        
+
         {/* Inline save notifications status */}
         <div className="text-xs font-semibold">
           {saveStatus === 'saving' && (
@@ -174,8 +174,8 @@ export default function SettingsPage() {
                   setMobileMenuOpen(false);
                 }}
                 className={`w-full text-left px-4 py-2.5 text-xs font-medium ${
-                  activeTab === tab.id 
-                    ? 'bg-slate-50 text-indigo-600 dark:bg-slate-950 dark:text-indigo-400 font-bold' 
+                  activeTab === tab.id
+                    ? 'bg-slate-50 text-indigo-600 dark:bg-slate-950 dark:text-indigo-400 font-bold'
                     : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
@@ -188,7 +188,7 @@ export default function SettingsPage() {
 
       {/* TWO-COLUMN LAYOUT DESKTOP */}
       <div className="flex flex-col md:flex-row gap-8 relative items-start">
-        
+
         {/* Navigation Sidebar Panel */}
         <nav className="hidden md:block w-60 flex-shrink-0 space-y-1 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
           {tabs.map((tab) => {
@@ -199,9 +199,9 @@ export default function SettingsPage() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full flex items-center px-3.5 py-2 rounded-xl text-xs font-semibold transition-all border ${
-                  isActive 
-                    ? (tab.danger 
-                        ? 'bg-rose-50 border-rose-100 text-rose-700 dark:bg-rose-950/20 dark:border-rose-900/10' 
+                  isActive
+                    ? (tab.danger
+                        ? 'bg-rose-50 border-rose-100 text-rose-700 dark:bg-rose-950/20 dark:border-rose-900/10'
                         : 'bg-indigo-50 border-indigo-100/30 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-400')
                     : 'border-transparent text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-950 hover:text-slate-850 dark:hover:text-slate-300'
                 }`}
@@ -215,7 +215,7 @@ export default function SettingsPage() {
 
         {/* Dynamic Content Panel area */}
         <div className="flex-1 w-full min-w-0 bg-white dark:bg-slate-900 p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm rounded-3xl">
-          
+
           {/* PROFILE CONFIG */}
           {activeTab === 'profile' && (
             <div className="space-y-6 max-w-xl animate-fadeIn">
@@ -240,7 +240,7 @@ export default function SettingsPage() {
                   <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">Short Bio</label>
                   <textarea rows={4} value={settings.profile.bio} onChange={e => handleChange('profile', 'bio', e.target.value)} className="w-full px-3.5 py-2 border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none focus:border-indigo-500" />
                 </div>
-                
+
                 <div className="pt-2">
                   <button onClick={() => handleSave('profile', settings.profile)} disabled={saving} className="flex items-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
                     Save Changes
@@ -298,11 +298,11 @@ export default function SettingsPage() {
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-350 capitalize">
                       {key.replace(/([A-Z])/g, ' $1').trim()}
                     </span>
-                    <input 
-                      type="checkbox" 
-                      checked={val} 
-                      onChange={e => handleChange('notifications', key, e.target.checked)} 
-                      className="w-4 h-4 text-indigo-600 rounded border-slate-200 focus:ring-indigo-500" 
+                    <input
+                      type="checkbox"
+                      checked={val}
+                      onChange={e => handleChange('notifications', key, e.target.checked)}
+                      className="w-4 h-4 text-indigo-600 rounded border-slate-200 focus:ring-indigo-500"
                     />
                   </label>
                 ))}
@@ -324,30 +324,30 @@ export default function SettingsPage() {
               </div>
               <div className="space-y-4">
                 <label className="flex items-center space-x-3.5 mb-6 p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl cursor-pointer border border-slate-200/50 dark:border-slate-800/80">
-                  <input 
-                    type="checkbox" 
-                    checked={settings.privacy.isPublic} 
-                    onChange={e => handleChange('privacy', 'isPublic', e.target.checked)} 
-                    className="w-4.5 h-4.5 text-indigo-600 rounded border-slate-200 focus:ring-indigo-500" 
+                  <input
+                    type="checkbox"
+                    checked={settings.privacy.isPublic}
+                    onChange={e => handleChange('privacy', 'isPublic', e.target.checked)}
+                    className="w-4.5 h-4.5 text-indigo-600 rounded border-slate-200 focus:ring-indigo-500"
                   />
                   <div>
                     <p className="text-xs font-bold text-slate-900 dark:text-white">Enable Public Portfolio Link</p>
                     <p className="text-[10px] text-slate-550">Allows external recruiters to view your web CV.</p>
                   </div>
                 </label>
-                
+
                 <h3 className="text-xs font-bold text-slate-450 uppercase tracking-wider mt-4">Visible Sections</h3>
                 {Object.entries(settings.privacy.visibleSections).map(([key, val]) => (
                   <label key={key} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800/80 last:border-0 cursor-pointer">
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-350 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-                    <input 
-                      type="checkbox" 
-                      checked={val} 
+                    <input
+                      type="checkbox"
+                      checked={val}
                       onChange={e => {
                         const newSections = { ...settings.privacy.visibleSections, [key]: e.target.checked };
                         handleChange('privacy', 'visibleSections', newSections);
-                      }} 
-                      className="w-4 h-4 text-indigo-600 rounded border-slate-200" 
+                      }}
+                      className="w-4 h-4 text-indigo-600 rounded border-slate-200"
                     />
                   </label>
                 ))}
@@ -400,12 +400,12 @@ export default function SettingsPage() {
                 {Object.keys(settings.connectedAccounts).map(platform => (
                   <div key={platform} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border border-slate-200/80 dark:border-slate-800/80 rounded-xl bg-slate-50 dark:bg-slate-950/20">
                     <span className="text-xs font-semibold capitalize text-slate-700 dark:text-slate-350">{platform} Username</span>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       placeholder={`${platform} username`}
-                      value={settings.connectedAccounts[platform]} 
-                      onChange={e => handleChange('connectedAccounts', platform, e.target.value)} 
-                      className="w-full sm:w-2/3 mt-2 sm:mt-0 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs focus:outline-none focus:border-indigo-500" 
+                      value={settings.connectedAccounts[platform]}
+                      onChange={e => handleChange('connectedAccounts', platform, e.target.value)}
+                      className="w-full sm:w-2/3 mt-2 sm:mt-0 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs focus:outline-none focus:border-indigo-500"
                     />
                   </div>
                 ))}
@@ -444,7 +444,7 @@ export default function SettingsPage() {
                     </select>
                   </div>
                 </div>
-                
+
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">Weekly Target Applications</label>
                   <input type="number" min="1" max="100" value={settings.preferences.weeklyGoals} onChange={e => handleChange('preferences', 'weeklyGoals', Number(e.target.value))} className="w-full px-3.5 py-2 border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none focus:border-indigo-500" />

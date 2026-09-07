@@ -1,9 +1,9 @@
 /**
  * SkillSync AI - Database Seeder
- * 
+ *
  * This script populates the database with demo data for showcasing the app.
  * WARNING: Running with --destroy flag will DELETE all existing data first.
- * 
+ *
  * Usage:
  *   npm run seed           # Import demo data
  *   npm run seed:destroy   # Destroy all data

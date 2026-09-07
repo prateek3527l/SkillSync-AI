@@ -78,14 +78,14 @@ app.use(
   })
 );
 
-// Rate limiting – 100 requests per 15 minutes per IP
+// Rate limiting – 100 requests per 15 minutes per IP (bypassed in local development)
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: { message: 'Too many requests from this IP, please try again in 15 minutes.' },
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.method === 'OPTIONS',
+  skip: (req) => process.env.NODE_ENV !== 'production' || req.method === 'OPTIONS',
 });
 app.use('/api', limiter);
 
@@ -94,10 +94,9 @@ const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
   message: { message: 'Too many authentication attempts, please try again in 15 minutes.' },
-  // OPTIONS preflight should not be rate‑limited
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.method === 'OPTIONS',
+  skip: (req) => process.env.NODE_ENV !== 'production' || req.method === 'OPTIONS',
 });
 app.use('/api/auth', authLimiter);
 

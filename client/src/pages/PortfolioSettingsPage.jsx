@@ -66,7 +66,7 @@ export default function PortfolioSettingsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
+
         {/* Left Column - Form */}
         <div className="md:col-span-2 space-y-6">
           {/* General Information */}
@@ -74,7 +74,7 @@ export default function PortfolioSettingsPage() {
             <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
               <Settings2 className="w-5 h-5 mr-2 text-primary-500" /> General Info
             </h2>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Public Username / URL</label>
               <div className="flex">
@@ -100,7 +100,7 @@ export default function PortfolioSettingsPage() {
                 <input type="text" value={settings.location} onChange={(e) => handleChange('location', e.target.value)} className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
               </div>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Availability Status</label>
               <input type="text" value={settings.availabilityStatus} onChange={(e) => handleChange('availabilityStatus', e.target.value)} className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" placeholder="e.g. Actively looking for Fall 2026 Internships" />
@@ -116,12 +116,12 @@ export default function PortfolioSettingsPage() {
               {['github', 'leetcode', 'hackerrank', 'codeforces'].map(platform => (
                 <div key={platform}>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 capitalize">{platform}</label>
-                  <input 
-                    type="text" 
-                    value={settings.codingProfiles[platform]} 
-                    onChange={(e) => handleChange(platform, e.target.value, 'codingProfiles')} 
-                    className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" 
-                    placeholder={`${platform} username/url`} 
+                  <input
+                    type="text"
+                    value={settings.codingProfiles[platform]}
+                    onChange={(e) => handleChange(platform, e.target.value, 'codingProfiles')}
+                    className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    placeholder={`${platform} username/url`}
                   />
                 </div>
               ))}
@@ -135,13 +135,13 @@ export default function PortfolioSettingsPage() {
             <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center mb-4">
               <Globe className="w-5 h-5 mr-2 text-primary-500" /> Visibility
             </h2>
-            
+
             <label className="flex items-center space-x-3 mb-6 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg cursor-pointer">
-              <input 
-                type="checkbox" 
-                checked={settings.preferences.isPublic} 
+              <input
+                type="checkbox"
+                checked={settings.preferences.isPublic}
                 onChange={(e) => handleChange('isPublic', e.target.checked, 'preferences')}
-                className="w-5 h-5 text-primary-600 rounded border-gray-300 focus:ring-primary-500" 
+                className="w-5 h-5 text-primary-600 rounded border-gray-300 focus:ring-primary-500"
               />
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">Publish Portfolio</p>
@@ -165,14 +165,14 @@ export default function PortfolioSettingsPage() {
               <div className="space-y-2">
                 {Object.keys(settings.preferences.visibleSections).map(section => (
                   <label key={section} className="flex items-center space-x-2">
-                    <input 
-                      type="checkbox" 
-                      checked={settings.preferences.visibleSections[section]} 
+                    <input
+                      type="checkbox"
+                      checked={settings.preferences.visibleSections[section]}
                       onChange={(e) => {
                         const newVisible = { ...settings.preferences.visibleSections, [section]: e.target.checked };
                         handleChange('visibleSections', newVisible, 'preferences');
                       }}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" 
+                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                     />
                     <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">{section}</span>
                   </label>
@@ -188,8 +188,8 @@ export default function PortfolioSettingsPage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Accent Color</label>
-                <select 
-                  value={settings.preferences.accentColor} 
+                <select
+                  value={settings.preferences.accentColor}
                   onChange={(e) => handleChange('accentColor', e.target.value, 'preferences')}
                   className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
                 >
@@ -202,8 +202,8 @@ export default function PortfolioSettingsPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Layout Style</label>
-                <select 
-                  value={settings.preferences.layoutStyle} 
+                <select
+                  value={settings.preferences.layoutStyle}
                   onChange={(e) => handleChange('layoutStyle', e.target.value, 'preferences')}
                   className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
                 >

@@ -22,14 +22,14 @@ const uploadResume = async (req, res, next) => {
       if (fs.existsSync(oldFilePath)) {
         fs.unlinkSync(oldFilePath);
       }
-      
+
       // Update DB record
       existingResume.originalFileName = req.file.originalname;
       existingResume.storedFileName = req.file.filename;
       existingResume.fileUrl = `/uploads/${req.file.filename}`;
       existingResume.fileSize = req.file.size;
       existingResume.uploadDate = Date.now();
-      
+
       const updatedResume = await existingResume.save();
       return res.status(200).json(updatedResume);
     }
@@ -55,11 +55,11 @@ const uploadResume = async (req, res, next) => {
 const getResume = async (req, res, next) => {
   try {
     const resume = await Resume.findOne({ userId: req.user.id });
-    
+
     if (!resume) {
       return res.status(200).json(null);
     }
-    
+
     res.status(200).json(resume);
   } catch (error) {
     next(error);
@@ -79,7 +79,7 @@ const downloadResume = async (req, res, next) => {
     }
 
     const filePath = path.join(__dirname, '..', 'uploads', resume.storedFileName);
-    
+
     if (fs.existsSync(filePath)) {
       res.download(filePath, resume.originalFileName);
     } else {
@@ -124,7 +124,7 @@ const deleteResume = async (req, res, next) => {
 const analyzeResume = async (req, res, next) => {
   try {
     const resume = await Resume.findOne({ userId: req.user.id });
-    
+
     if (!resume) {
       res.status(404);
       throw new Error('No resume found to analyze. Please upload one first.');
@@ -138,7 +138,7 @@ const analyzeResume = async (req, res, next) => {
 
     // Extract text
     const text = await extractTextFromPDF(filePath);
-    
+
     if (!text || text.trim().length === 0) {
       res.status(400);
       throw new Error('Could not extract text from the PDF. It might be scanned or empty.');
@@ -146,7 +146,7 @@ const analyzeResume = async (req, res, next) => {
 
     // Call AI Service
     const analysisResult = await analyzeWithGemini(text);
-    
+
     // Save to DB
     resume.analysis = {
       ...analysisResult,
@@ -337,4 +337,3 @@ module.exports = {
   analyzeResumePython,
   getPythonRoles
 };
-

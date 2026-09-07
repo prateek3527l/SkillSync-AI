@@ -35,7 +35,7 @@ const getSettings = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) { res.status(404); throw new Error('User not found'); }
-    
+
     const { settings, portfolio } = await ensureSettingsExist(user._id, user);
 
     res.status(200).json({
@@ -93,7 +93,7 @@ const updateProfileSettings = async (req, res, next) => {
           res.status(400); throw new Error('Username already taken');
         }
       }
-      
+
       const pUpdate = {};
       if (username) pUpdate.username = username;
       if (headline !== undefined) pUpdate.headline = headline;
@@ -188,15 +188,15 @@ const updatePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
     const user = await User.findById(req.user.id).select('+password');
-    
+
     if (!user) { res.status(404); throw new Error('User not found'); }
-    
+
     const isMatch = await user.matchPassword(currentPassword);
     if (!isMatch) { res.status(401); throw new Error('Incorrect current password'); }
 
     user.password = newPassword;
     await user.save();
-    
+
     res.status(200).json({ message: 'Password updated successfully' });
   } catch (error) {
     next(error);
@@ -244,7 +244,7 @@ const deleteAccount = async (req, res, next) => {
   try {
     const { password } = req.body;
     const user = await User.findById(req.user.id).select('+password');
-    
+
     const isMatch = await user.matchPassword(password);
     if (!isMatch) { res.status(401); throw new Error('Incorrect password'); }
 

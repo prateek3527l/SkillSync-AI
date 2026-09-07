@@ -21,8 +21,8 @@ const getOverview = async (req, res, next) => {
     ]);
 
     const totalInterviews = interviews.length;
-    const avgInterviewScore = totalInterviews > 0 
-      ? Math.round(interviews.reduce((acc, curr) => acc + curr.overallScore, 0) / totalInterviews) 
+    const avgInterviewScore = totalInterviews > 0
+      ? Math.round(interviews.reduce((acc, curr) => acc + curr.overallScore, 0) / totalInterviews)
       : 0;
 
     const profileCompletion = user.profileImage && user.bio ? 100 : 85; // Simplistic for now
@@ -54,7 +54,7 @@ const getOverview = async (req, res, next) => {
 const getInterviewAnalytics = async (req, res, next) => {
   try {
     const interviews = await InterviewSession.find({ userId: req.user.id, status: 'completed' }).sort({ completedAt: 1 });
-    
+
     // Time series for scores
     const trend = interviews.map(i => ({
       date: i.completedAt.toLocaleDateString(),
@@ -89,7 +89,7 @@ const getInterviewAnalytics = async (req, res, next) => {
 const getJobAnalytics = async (req, res, next) => {
   try {
     const jobs = await JobApplication.find({ createdBy: req.user.id });
-    
+
     const pipeline = [
       { name: 'Saved', value: jobs.filter(j => j.currentStage === 'Saved').length },
       { name: 'Applied', value: jobs.filter(j => j.currentStage === 'Applied').length },
@@ -118,7 +118,7 @@ const getActivityTimeline = async (req, res, next) => {
     ]);
 
     let timeline = [];
-    
+
     projects.forEach(p => timeline.push({
       id: `proj-${p._id}`,
       type: 'Project Created',
@@ -158,7 +158,7 @@ const getActivityTimeline = async (req, res, next) => {
 const getGoals = async (req, res, next) => {
   try {
     let goals = await Goal.find({ userId: req.user.id });
-    
+
     // Seed some goals if empty for demonstration
     if (goals.length === 0) {
       goals = await Goal.insertMany([
@@ -167,7 +167,7 @@ const getGoals = async (req, res, next) => {
         { userId: req.user.id, title: 'Complete 10 Mock Interviews', category: 'Interviews', targetValue: 10, currentValue: 3 },
       ]);
     }
-    
+
     res.status(200).json(goals);
   } catch (error) {
     next(error);

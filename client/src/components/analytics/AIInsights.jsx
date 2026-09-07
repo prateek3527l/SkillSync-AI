@@ -4,7 +4,7 @@ export default function AIInsights({ stats }) {
   // Generate dynamic insights based on stats (simplified logic for now)
   const generateInsights = () => {
     const insights = [];
-    
+
     if (stats?.overview) {
       if (stats.overview.averageInterviewScore < 70) {
         insights.push({
@@ -61,7 +61,7 @@ export default function AIInsights({ stats }) {
       <h3 className="text-lg font-bold text-indigo-900 dark:text-indigo-300 mb-4 flex items-center">
         <Sparkles className="w-5 h-5 mr-2 text-indigo-500" /> AI Career Insights
       </h3>
-      
+
       <div className="space-y-4">
         {insights.map((insight, idx) => (
           <div key={idx} className="bg-white/60 dark:bg-gray-800/60 p-4 rounded-xl backdrop-blur-sm">

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, History as HistoryIcon } from 'lucide-react';
 import InterviewSetup from '../components/interview/InterviewSetup';
 import InterviewActive from '../components/interview/InterviewActive';
 import InterviewResults from '../components/interview/InterviewResults';
@@ -53,9 +55,9 @@ export default function InterviewPage() {
 
   const handleFinish = async () => {
     if (!window.confirm('Are you sure you want to finish the interview now?')) return;
-    
+
     const finishPromise = api.post('/api/interview/finish', { sessionId: session._id });
-    
+
     toast.promise(finishPromise, {
       loading: 'Generating AI evaluation and feedback...',
       success: 'Interview completed!',
@@ -82,60 +84,118 @@ export default function InterviewPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="min-h-[calc(100vh-6rem)] space-y-6">
       {/* Tab Navigation if in Setup or History */}
       {(view === 'setup' || view === 'history') && (
-        <div className="flex border-b border-gray-200 dark:border-gray-800 mb-6">
-          <button
-            onClick={() => setView('setup')}
-            className={`px-6 py-3 font-medium text-sm border-b-2 transition-colors ${
-              view === 'setup' 
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400' 
-                : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-            }`}
-          >
-            New Interview
-          </button>
-          <button
-            onClick={() => setView('history')}
-            className={`px-6 py-3 font-medium text-sm border-b-2 transition-colors ${
-              view === 'history' 
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400' 
-                : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-            }`}
-          >
-            History & Progress
-          </button>
+        <div className="flex justify-center mb-6 pt-2">
+          <div className="inline-flex p-1.5 bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+            <button
+              onClick={() => setView('setup')}
+              className={`relative flex items-center space-x-2 px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors duration-200 ${
+                view === 'setup'
+                  ? 'text-indigo-600 dark:text-indigo-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              }`}
+            >
+              {view === 'setup' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-white dark:bg-gray-700/90 rounded-xl border border-gray-200/60 dark:border-gray-600/60 shadow-xs"
+                  transition={{ type: 'spring', bounce: 0.15, duration: 0.35 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center">
+                <Sparkles className="w-4 h-4 mr-2 text-indigo-500" />
+                New Interview
+              </span>
+            </button>
+
+            <button
+              onClick={() => setView('history')}
+              className={`relative flex items-center space-x-2 px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors duration-200 ${
+                view === 'history'
+                  ? 'text-indigo-600 dark:text-indigo-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              }`}
+            >
+              {view === 'history' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-white dark:bg-gray-700/90 rounded-xl border border-gray-200/60 dark:border-gray-600/60 shadow-xs"
+                  transition={{ type: 'spring', bounce: 0.15, duration: 0.35 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center">
+                <HistoryIcon className="w-4 h-4 mr-2 text-indigo-500" />
+                History & Progress
+              </span>
+            </button>
+          </div>
         </div>
       )}
 
-      {view === 'setup' && (
-        <InterviewSetup onStart={handleStart} loading={loading} />
-      )}
-      
-      {view === 'active' && (
-        <InterviewActive 
-          session={session} 
-          onAnswer={handleAnswer} 
-          onFinish={handleFinish} 
-          submitting={loading} 
-        />
-      )}
-      
-      {view === 'results' && (
-        <InterviewResults 
-          session={session} 
-          onRetake={() => { setSession(null); setView('setup'); }}
-          onHistory={() => setView('history')}
-        />
-      )}
-      
-      {view === 'history' && (
-        <InterviewHistory 
-          onViewDetail={viewPastSession}
-          onNew={() => setView('setup')}
-        />
-      )}
+      {/* Main View Container */}
+      <AnimatePresence mode="wait">
+        {view === 'setup' && (
+          <motion.div
+            key="setup"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
+          >
+            <InterviewSetup onStart={handleStart} loading={loading} />
+          </motion.div>
+        )}
+
+        {view === 'active' && (
+          <motion.div
+            key="active"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.3 }}
+          >
+            <InterviewActive
+              session={session}
+              onAnswer={handleAnswer}
+              onFinish={handleFinish}
+              submitting={loading}
+            />
+          </motion.div>
+        )}
+
+        {view === 'results' && (
+          <motion.div
+            key="results"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+          >
+            <InterviewResults
+              session={session}
+              onRetake={() => { setSession(null); setView('setup'); }}
+              onHistory={() => setView('history')}
+            />
+          </motion.div>
+        )}
+
+        {view === 'history' && (
+          <motion.div
+            key="history"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
+          >
+            <InterviewHistory
+              onViewDetail={viewPastSession}
+              onNew={() => setView('setup')}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

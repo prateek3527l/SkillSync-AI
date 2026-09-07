@@ -16,16 +16,16 @@ export default function ProjectCard({ project, onEdit, onDelete }) {
           <Star className="w-4 h-4 fill-current" />
         </div>
       )}
-      
+
       {/* Action Buttons (Hover) */}
       <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-        <button 
+        <button
           onClick={() => onEdit(project)}
           className="p-1.5 bg-white text-gray-700 rounded-md shadow-sm hover:text-indigo-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:text-indigo-400"
         >
           <Edit className="w-4 h-4" />
         </button>
-        <button 
+        <button
           onClick={() => onDelete(project._id)}
           className="p-1.5 bg-white text-gray-700 rounded-md shadow-sm hover:text-red-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:text-red-400"
         >

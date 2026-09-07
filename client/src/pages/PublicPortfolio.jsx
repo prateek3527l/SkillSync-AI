@@ -24,7 +24,7 @@ export default function PublicPortfolio() {
   }, [username]);
 
   if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500">Loading portfolio...</div>;
-  
+
   if (error || !data) return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="card text-center max-w-md p-8">
@@ -45,7 +45,7 @@ export default function PublicPortfolio() {
   return (
     <div className={`min-h-screen font-sans ${isDark ? 'dark bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
-        
+
         {/* HERO SECTION */}
         <section className="text-center pt-10">
           <div className="relative inline-block mb-6">
@@ -64,7 +64,7 @@ export default function PublicPortfolio() {
             {profile.location && <span className="flex items-center"><MapPin className="w-4 h-4 mr-1" /> {profile.location}</span>}
             {profile.experienceYears > 0 && <span className="flex items-center"><Award className="w-4 h-4 mr-1" /> {profile.experienceYears} Years Exp.</span>}
           </div>
-          
+
           <div className="flex flex-wrap items-center justify-center gap-4">
             {contact.email && (
               <a href={`mailto:${contact.email}`} className="btn-primary flex items-center">
@@ -77,7 +77,7 @@ export default function PublicPortfolio() {
               </a>
             )}
           </div>
-          
+
           {/* Social Links */}
           <div className="flex items-center justify-center space-x-5 mt-8">
             {contact.github && <a href={contact.github} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"><Github className="w-6 h-6" /></a>}
@@ -93,7 +93,7 @@ export default function PublicPortfolio() {
             <h2 className="text-2xl font-bold mb-6 flex items-center">About Me</h2>
             <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
               <p className="text-lg leading-relaxed mb-6">{profile.bio}</p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                 {about.education && (
                   <div>

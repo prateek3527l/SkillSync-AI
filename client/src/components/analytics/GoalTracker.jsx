@@ -49,9 +49,9 @@ export default function GoalTracker({ goals }) {
                   <p className="text-xs text-gray-500">{goal.currentValue} / {goal.targetValue}</p>
                 </div>
               </div>
-              
+
               <div className="w-full h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                <div 
+                <div
                   className={`h-full rounded-full transition-all duration-1000 ${isComplete ? 'bg-emerald-500' : 'bg-indigo-500'}`}
                   style={{ width: `${progress}%` }}
                 />

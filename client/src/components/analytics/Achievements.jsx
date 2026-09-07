@@ -13,14 +13,14 @@ const BADGES = [
 const getUnlockedBadges = (stats) => {
   if (!stats) return [];
   const unlocked = [];
-  
+
   if (stats.overview?.totalProjects >= 1) unlocked.push('first_project');
   if (stats.overview?.totalProjects >= 3) unlocked.push('portfolio_builder');
   if (stats.overview?.resumeScore >= 90) unlocked.push('resume_master');
   if (stats.overview?.averageInterviewScore >= 85) unlocked.push('interview_expert');
   if (stats.overview?.applicationsSubmitted >= 10) unlocked.push('job_hunter');
   if (stats.overview?.profileCompletion === 100) unlocked.push('profile_complete');
-  
+
   return unlocked;
 };
 
@@ -39,13 +39,13 @@ export default function Achievements({ stats }) {
         {BADGES.map((badge) => {
           const isUnlocked = unlockedIds.includes(badge.id);
           const Icon = badge.icon;
-          
+
           return (
-            <div 
+            <div
               key={badge.id}
               className={`p-4 rounded-xl border text-center transition-all ${
-                isUnlocked 
-                  ? 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm' 
+                isUnlocked
+                  ? 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm'
                   : 'border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 opacity-60 grayscale'
               }`}
             >

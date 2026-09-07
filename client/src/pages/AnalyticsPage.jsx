@@ -84,48 +84,48 @@ export default function AnalyticsPage() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <KPICard 
-          title="Total Projects" 
-          value={stats.overview.totalProjects} 
-          icon={Briefcase} 
+        <KPICard
+          title="Total Projects"
+          value={stats.overview.totalProjects}
+          icon={Briefcase}
           colorClass="bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
           trend="up" trendValue="+1"
         />
-        <KPICard 
-          title="Resume Score" 
-          value={`${stats.overview.resumeScore}/100`} 
-          icon={FileText} 
+        <KPICard
+          title="Resume Score"
+          value={`${stats.overview.resumeScore}/100`}
+          icon={FileText}
           colorClass="bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400"
           trend={stats.overview.resumeScore >= 80 ? 'up' : 'flat'} trendValue="Stable"
         />
-        <KPICard 
-          title="Interviews Completed" 
-          value={stats.overview.totalInterviews} 
-          icon={Monitor} 
+        <KPICard
+          title="Interviews Completed"
+          value={stats.overview.totalInterviews}
+          icon={Monitor}
           colorClass="bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400"
           trend="up" trendValue="+3 this month"
         />
-        <KPICard 
-          title="Job Applications" 
-          value={stats.overview.applicationsSubmitted} 
-          icon={CheckCircle} 
+        <KPICard
+          title="Job Applications"
+          value={stats.overview.applicationsSubmitted}
+          icon={CheckCircle}
           colorClass="bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400"
           trend="up" trendValue="Active"
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
+
         {/* Main Charts Area */}
         <div className="lg:col-span-2 space-y-6">
           <AIInsights stats={stats} />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Interview Performance Trend</h3>
               <InterviewTrendChart data={stats.interviews?.trend} />
             </div>
-            
+
             <div className="card">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Mock Interview Strengths</h3>
               <InterviewRadarChart data={stats.interviews?.radar} />

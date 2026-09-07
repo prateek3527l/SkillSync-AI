@@ -24,7 +24,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 // 1. Interview Performance Radar Chart
 export const InterviewRadarChart = ({ data }) => {
   if (!data || data.length === 0) return <EmptyChart message="No interview data yet" />;
-  
+
   return (
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -43,9 +43,9 @@ export const InterviewRadarChart = ({ data }) => {
 // 2. Application Pipeline Funnel/Bar Chart
 export const PipelineChart = ({ data }) => {
   if (!data || data.length === 0) return <EmptyChart message="No applications yet" />;
-  
+
   const COLORS = ['#94a3b8', '#3b82f6', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'];
-  
+
   return (
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -68,7 +68,7 @@ export const PipelineChart = ({ data }) => {
 // 3. Interview Trend Line Chart
 export const InterviewTrendChart = ({ data }) => {
   if (!data || data.length === 0) return <EmptyChart message="No trend data yet" />;
-  
+
   return (
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">

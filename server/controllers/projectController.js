@@ -42,7 +42,7 @@ const getProject = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const projectData = { ...req.body, createdBy: req.user.id };
-    
+
     // Ensure technologies is an array if passed as string (though client should send array)
     if (typeof projectData.technologies === 'string') {
       projectData.technologies = projectData.technologies.split(',').map(tech => tech.trim());
@@ -72,9 +72,9 @@ const updateProject = async (req, res, next) => {
       res.status(401);
       throw new Error('User not authorized');
     }
-    
+
     let updateData = { ...req.body };
-    
+
     if (typeof updateData.technologies === 'string') {
       updateData.technologies = updateData.technologies.split(',').map(tech => tech.trim());
     }

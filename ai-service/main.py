@@ -72,7 +72,7 @@ async def analyze_resume(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Uploaded file is empty."
             )
-            
+
         result = analyze_resume_skills(pdf_bytes, target_role)
         return result
     except ValueError as ve:

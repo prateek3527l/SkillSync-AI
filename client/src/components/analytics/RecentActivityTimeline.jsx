@@ -40,7 +40,7 @@ export default function RecentActivityTimeline({ activities }) {
             <div className={`absolute -left-[11px] p-1.5 rounded-full border-2 bg-white dark:bg-gray-900 ${getBg(activity.icon)} group-hover:scale-110 transition-transform`}>
               {getIcon(activity.icon)}
             </div>
-            
+
             {/* Content */}
             <div>
               <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-0.5">

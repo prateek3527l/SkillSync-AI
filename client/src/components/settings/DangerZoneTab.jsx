@@ -13,7 +13,7 @@ export default function DangerZoneTab() {
       toast.error('Please enter your password to confirm');
       return;
     }
-    
+
     setDeleting(true);
     try {
       await api.delete('/api/settings/account', { data: { password } });
@@ -42,7 +42,7 @@ export default function DangerZoneTab() {
         </p>
 
         {!showConfirm ? (
-          <button 
+          <button
             onClick={() => setShowConfirm(true)}
             className="flex items-center px-4 py-2 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors font-medium text-sm"
           >
@@ -52,24 +52,24 @@ export default function DangerZoneTab() {
           <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-red-200 dark:border-red-800 shadow-sm mt-4">
             <p className="text-sm font-bold text-gray-900 dark:text-white mb-3">Are you absolutely sure?</p>
             <p className="text-xs text-gray-500 mb-4">This action cannot be undone. Enter your password to confirm.</p>
-            
-            <input 
-              type="password" 
+
+            <input
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Your password"
               className="w-full mb-4 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-sm focus:ring-red-500 focus:border-red-500"
             />
-            
+
             <div className="flex space-x-3">
-              <button 
+              <button
                 onClick={handleDelete}
                 disabled={deleting}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-bold hover:bg-red-700 disabled:opacity-50"
               >
                 {deleting ? 'Deleting...' : 'Yes, delete my account'}
               </button>
-              <button 
+              <button
                 onClick={() => { setShowConfirm(false); setPassword(''); }}
                 disabled={deleting}
                 className="px-4 py-2 text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"

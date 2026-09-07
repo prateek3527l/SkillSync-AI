@@ -1,39 +1,163 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply antialiased text-slate-900 bg-slate-50;
-    font-family: 'Inter', sans-serif;
+    @apply antialiased text-slate-800 bg-slate-50 selection:bg-indigo-500 selection:text-white;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
-  .dark body {
-    @apply text-slate-100 bg-slate-950;
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
   }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-600;
+  }
 }
 
 @layer components {
-  .glass-panel {
-    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/50 shadow-soft;
-  }
-
-  .btn-primary {
-    @apply bg-indigo-600 text-white hover:bg-indigo-700 transition-all shadow-sm rounded-xl px-4 py-2.5 font-bold text-xs active:scale-[0.98] duration-150;
-  }
-
+  /* Restrained, crisp card component */
   .card {
-    @apply bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/85 dark:border-slate-800 p-6 transition-all duration-300 hover:shadow-md;
+    @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm p-6 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700;
+  }
+
+  .card-flat {
+    @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6;
+  }
+
+  /* Primary & secondary button styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-[0.98] duration-150 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold text-xs px-4 py-2.5 rounded-xl transition-all active:scale-[0.98] duration-150 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-xs px-3 py-2 rounded-lg transition-all duration-150;
+  }
+
+  /* Badge utilities */
+  .badge {
+    @apply inline-flex items-center text-[10px] font-bold tracking-wide uppercase px-2.5 py-0.5 rounded-md border;
+  }
+
+  .badge-indigo {
+    @apply bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border-indigo-200/60 dark:border-indigo-800/60;
+  }
+
+  .badge-emerald {
+    @apply bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-200/60 dark:border-emerald-800/60;
+  }
+
+  .badge-slate {
+    @apply bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-slate-700/80;
+  }
+
+  /* Input fields */
+  .input-field {
+    @apply w-full px-3.5 py-2.5 text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all;
+  }
+
+  /* Refined Animated Purple/Indigo Card Outline Effect */
+  .dashboard-card-outline {
+    @apply relative rounded-2xl bg-white dark:bg-slate-900 transition-all duration-300;
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 0 14px -3px rgba(99, 102, 241, 0.05);
+  }
+
+  .dark .dashboard-card-outline {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 0 18px -3px rgba(99, 102, 241, 0.08);
+  }
+
+  .dashboard-card-outline::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 1rem;
+    padding: 1px;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.04) 25%,
+      rgba(165, 180, 252, 0.55) 50%,
+      rgba(224, 231, 255, 0.85) 55%,
+      rgba(165, 180, 252, 0.55) 60%,
+      rgba(99, 102, 241, 0.04) 75%,
+      transparent 100%
+    );
+    background-size: 220% 220%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: borderShimmer 6.5s ease-in-out infinite;
+    opacity: 0.85;
+  }
+
+  .dashboard-card-outline-delay-1::after {
+    animation-delay: 2s;
+  }
+
+  .dashboard-card-outline-delay-2::after {
+    animation-delay: 4s;
+  }
+
+  .dashboard-card-focus {
+    border-color: rgba(99, 102, 241, 0.38) !important;
+    box-shadow: 0 2px 8px 0 rgba(99, 102, 241, 0.08) !important;
+  }
+
+  .dashboard-card-focus::after {
+    animation-duration: 5s;
+  }
+
+  .dashboard-card-outline:hover {
+    border-color: rgba(99, 102, 241, 0.45);
+    box-shadow: 0 4px 16px -2px rgba(99, 102, 241, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  }
+}
+
+@keyframes borderShimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Accessible animations respecting prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .dashboard-card-outline::after {
+    animation: none !important;
+    opacity: 0.35 !important;
   }
 }

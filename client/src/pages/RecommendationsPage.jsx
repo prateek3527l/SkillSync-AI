@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { 
-  Sparkles, 
-  CheckCircle, 
-  AlertCircle, 
-  ArrowRight, 
-  Loader, 
+import {
+  Sparkles,
+  CheckCircle,
+  AlertCircle,
+  ArrowRight,
+  Loader,
   Award,
   ChevronRight,
   RefreshCw,
@@ -61,7 +61,7 @@ export default function RecommendationsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [userSkills, setUserSkills] = useState([]);
-  
+
   // Filtering states
   const [filterType, setFilterType] = useState('all');
 
@@ -100,7 +100,7 @@ export default function RecommendationsPage() {
       const matched = role.requiredSkills.filter(req => allUser.includes(req.toLowerCase()));
       const missing = role.requiredSkills.filter(req => !allUser.includes(req.toLowerCase()));
       const score = Math.round((matched.length / role.requiredSkills.length) * 100);
-      
+
       let level = 'Low Match';
       if (score >= 70) level = 'Strong Match';
       else if (score >= 40) level = 'Moderate Match';
@@ -116,7 +116,7 @@ export default function RecommendationsPage() {
   };
 
   const recommendations = getMappedRecommendations();
-  
+
   // Filtered recommendations
   const filteredRecs = recommendations.filter(rec => {
     if (filterType === 'strong') return rec.score >= 70;
@@ -150,7 +150,7 @@ export default function RecommendationsPage() {
         <p className="text-xs text-slate-400 mt-2 max-w-sm">
           Please check your connection and try reloading the career optimizer module.
         </p>
-        <button 
+        <button
           onClick={fetchProfileSkills}
           className="mt-6 flex items-center px-4 py-2 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-colors"
         >
@@ -177,7 +177,7 @@ export default function RecommendationsPage() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-fadeIn pb-12">
-      
+
       {/* Page Header */}
       <div className="border-b border-slate-250/60 dark:border-slate-800 pb-5">
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Your Recommendations</h1>
@@ -188,25 +188,25 @@ export default function RecommendationsPage() {
 
       {/* FILTER CONTROL BAR */}
       <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-slate-500">
-        <button 
+        <button
           onClick={() => setFilterType('all')}
           className={`px-3.5 py-1.5 rounded-lg border transition-all ${filterType === 'all' ? 'bg-indigo-50 border-indigo-200/30 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400' : 'border-transparent hover:bg-slate-100 dark:hover:bg-slate-900'}`}
         >
           All Roles ({recommendations.length})
         </button>
-        <button 
+        <button
           onClick={() => setFilterType('strong')}
           className={`px-3.5 py-1.5 rounded-lg border transition-all ${filterType === 'strong' ? 'bg-indigo-50 border-indigo-200/30 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400' : 'border-transparent hover:bg-slate-100 dark:hover:bg-slate-900'}`}
         >
           Strong Matches ({recommendations.filter(r => r.score >= 70).length})
         </button>
-        <button 
+        <button
           onClick={() => setFilterType('moderate')}
           className={`px-3.5 py-1.5 rounded-lg border transition-all ${filterType === 'moderate' ? 'bg-indigo-50 border-indigo-200/30 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400' : 'border-transparent hover:bg-slate-100 dark:hover:bg-slate-900'}`}
         >
           Moderate Matches ({recommendations.filter(r => r.score >= 40 && r.score < 70).length})
         </button>
-        <button 
+        <button
           onClick={() => setFilterType('gaps')}
           className={`px-3.5 py-1.5 rounded-lg border transition-all ${filterType === 'gaps' ? 'bg-indigo-50 border-indigo-200/30 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400' : 'border-transparent hover:bg-slate-100 dark:hover:bg-slate-900'}`}
         >
@@ -217,10 +217,10 @@ export default function RecommendationsPage() {
       {/* THREE-COLUMN LAYOUT: Centerpiece match vs secondary list */}
       {userSkills.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           {/* LEFT PANEL: TOP MATCH & SECONDARY OPPORTUNITIES */}
           <div className="lg:col-span-8 space-y-8">
-            
+
             {/* 1. PRIMARY RECOMMENDATION: TOP MATCH */}
             {topMatch && filterType === 'all' && (
               <div className="bg-gradient-to-br from-indigo-900/10 via-indigo-950/5 to-transparent dark:from-indigo-950/20 p-6 sm:p-8 rounded-3xl border border-indigo-500/20 shadow-sm space-y-6 relative overflow-hidden">
@@ -237,7 +237,7 @@ export default function RecommendationsPage() {
                       {topMatch.title}
                     </h2>
                   </div>
-                  
+
                   {/* Dynamic percentage circle */}
                   <div className="relative w-16 h-16 rounded-full border-4 border-indigo-600 flex items-center justify-center font-black text-sm bg-white dark:bg-slate-900">
                     <span>{topMatch.score}%</span>
@@ -279,7 +279,7 @@ export default function RecommendationsPage() {
 
                 {/* Active route CTA */}
                 <div className="pt-2">
-                  <Link 
+                  <Link
                     to={topMatch.actionRoute}
                     className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm"
                   >
@@ -295,7 +295,7 @@ export default function RecommendationsPage() {
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 {filterType === 'all' ? 'Other Matched Opportunities' : 'Filtered Opportunities'}
               </h3>
-              
+
               {filteredRecs.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {filteredRecs.map((rec) => {
@@ -333,7 +333,7 @@ export default function RecommendationsPage() {
                           )}
                         </div>
 
-                        <Link 
+                        <Link
                           to={rec.actionRoute}
                           className="inline-flex items-center text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline pt-1"
                         >
@@ -355,7 +355,7 @@ export default function RecommendationsPage() {
 
           {/* RIGHT COLUMN: AI Explanation Panel */}
           <div className="lg:col-span-4 space-y-6">
-            
+
             {/* AI RECOMMENDATION INSIGHT */}
             <div className="bg-gradient-to-br from-indigo-900/10 via-indigo-950/5 to-transparent dark:from-indigo-950/30 p-5 rounded-3xl border border-indigo-500/20 shadow-sm space-y-4 relative overflow-hidden">
               <div className="flex items-center space-x-2 bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md border border-indigo-500/20 w-fit">
@@ -406,7 +406,7 @@ export default function RecommendationsPage() {
             Please configure your technical skills stack profile first to unlock personalized matching indexes.
           </p>
           <div className="mt-6">
-            <Link 
+            <Link
               to="/skills"
               className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition-colors"
             >

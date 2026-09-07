@@ -12,11 +12,11 @@ const InterviewSession = require('../models/InterviewSession');
 const getPublicPortfolio = async (req, res, next) => {
   try {
     const username = req.params.username.toLowerCase();
-    
+
     // Find portfolio and populate basic user info
     const portfolio = await Portfolio.findOne({ username, 'preferences.isPublic': true })
       .populate('userId', 'name profileImage bio email');
-      
+
     if (!portfolio) {
       res.status(404);
       throw new Error('Portfolio not found or is private');
@@ -35,8 +35,8 @@ const getPublicPortfolio = async (req, res, next) => {
     if (portfolio.preferences.visibleSections.achievements) {
       // Calculate career highlights
       const interviews = await InterviewSession.find({ userId, status: 'completed' });
-      const avgScore = interviews.length > 0 
-        ? Math.round(interviews.reduce((a, b) => a + b.overallScore, 0) / interviews.length) 
+      const avgScore = interviews.length > 0
+        ? Math.round(interviews.reduce((a, b) => a + b.overallScore, 0) / interviews.length)
         : 0;
 
       const resume = await Resume.findOne({ userId }).sort({ uploadDate: -1 });
@@ -103,14 +103,14 @@ const getPublicPortfolio = async (req, res, next) => {
 const getPortfolioSettings = async (req, res, next) => {
   try {
     let portfolio = await Portfolio.findOne({ userId: req.user.id });
-    
+
     // Auto-create defaults if it doesn't exist
     if (!portfolio) {
       // Generate a default username from their name
       const baseUsername = req.user.name.toLowerCase().replace(/[^a-z0-9]/g, '');
       let username = baseUsername;
       let count = 1;
-      
+
       while (await Portfolio.findOne({ username })) {
         username = `${baseUsername}${count}`;
         count++;
@@ -134,7 +134,7 @@ const getPortfolioSettings = async (req, res, next) => {
 const updatePortfolioSettings = async (req, res, next) => {
   try {
     let portfolio = await Portfolio.findOne({ userId: req.user.id });
-    
+
     if (!portfolio) {
       res.status(404);
       throw new Error('Portfolio not found');

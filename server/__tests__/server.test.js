@@ -1,6 +1,6 @@
 /**
  * SkillSync AI – Server Unit Tests
- * 
+ *
  * Uses Jest + Supertest to test API endpoints.
  * Run: npm test (from the /server directory)
  */

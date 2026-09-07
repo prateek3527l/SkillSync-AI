@@ -64,7 +64,7 @@ export default function AppRoutes() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      
+
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/profile" element={<ProfilePage />} />
@@ -120,7 +120,7 @@ export default function DashboardLayout() {
           </button>
         </div>
       </aside>
-      
+
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-8">
         <Outlet />

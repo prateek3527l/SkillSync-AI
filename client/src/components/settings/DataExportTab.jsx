@@ -11,10 +11,10 @@ export default function DataExportTab() {
     try {
       const res = await api.post('/api/settings/export');
       const dataStr = JSON.stringify(res.data, null, 2);
-      
+
       const blob = new Blob([dataStr], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
-      
+
       const a = document.createElement('a');
       a.href = url;
       a.download = `skillsync-export-${new Date().toISOString().split('T')[0]}.${format}`;
@@ -22,7 +22,7 @@ export default function DataExportTab() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       toast.success(`Data exported successfully as ${format.toUpperCase()}`);
     } catch (error) {
       toast.error('Failed to export data');
@@ -45,16 +45,16 @@ export default function DataExportTab() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <button 
-            onClick={() => handleExport('json')} 
+          <button
+            onClick={() => handleExport('json')}
             disabled={loading}
             className="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
             <FileJson className="w-4 h-4 mr-2 text-indigo-500" /> Export as JSON
           </button>
 
-          <button 
-            onClick={() => toast.error('CSV Export coming soon')} 
+          <button
+            onClick={() => toast.error('CSV Export coming soon')}
             disabled={loading}
             className="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
